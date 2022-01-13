@@ -1,0 +1,41 @@
+{% extends "layout.html" %}
+
+{% block quote %}
+    <figure>
+        <blockquote class="blockquote">
+            <p>{{ quote['quote'] }}</p>
+        </blockquote>
+        <figcaption class="blockquote-footer">
+            {{ quote['character'] }} <cite title="Source Title">{{ quote['anime']}}</cite>
+        </figcaption>
+  </figure>
+{% endblock %}
+
+{% block body %}
+
+    <div class="card-group" style="margin-bottom: 2em;">
+        <div class="card text-center">
+            <div class="card-body">
+                <h5 class="card-title">Buscar Animes</h5>
+                <p class="card-text">Digite el nombre del anime que deseas buscar</p>
+                <form action="/buscar_animes" method="post">
+                    <input name="anime" class="form-control" type="text">
+                    <a style="margin-top: 1em;" href="/buscar_animes" type="submit" class="btn btn-outline-primary">Buscar Animes</a>
+                </form>
+                
+            </div>
+        </div>
+        <div class="card text-center">
+            <div class="card-body">
+                <h5 class="card-title">Buscar Mangas</h5>
+                <p class="card-text">Digite el nombre del manga que deseas buscar</p>
+                <form action="/buscar_mangas" method="post">
+                    <input name="manga" class="form-control" type="text">
+                    <a style="margin-top: 1em;" href="/buscar_mangas" type="button" class="btn btn-outline-primary">Buscar Mangas</a>
+                </form>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
