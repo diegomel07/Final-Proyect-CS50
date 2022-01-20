@@ -1,0 +1,52 @@
+{% extends "layout.html" %}
+
+{% block body %}
+    <div class="contenedor">
+        
+        <div class="search-grid">
+            <h2 style="text-align: center;" class="title">Animes</h2>
+            <h2 style="text-align: center;" class="title">Mangas</h2>
+        </div>
+
+        <div class="search-grid">
+            <div class="results-search">
+                {% for anime in animes %}
+                <a class="link" href="{{anime['url']}}">
+                    <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+                        <div class="col p-4 d-flex flex-column position-static">
+                            <strong class="d-inline-block mb-2 text-primary">{{ anime['type'] }}</strong>
+                            <h3 class="mb-0">{{ anime['title'] }}</h3>
+                            <div class="mb-1 text-muted">Episodes: {{ anime['episodes'] }}</div>
+                            <div class="mb-1 text-muted">Score: {{ anime['score'] }}</div>
+                        </div>
+                        <div class="col-auto d-none d-lg-block">
+                            <img alt='{{ anime["title"] }}' src="{{ anime['image_url'] }}"></img>
+                        </div>
+                    </div>
+                </a>
+                {% endfor %}
+            </div>
+            
+            <div class="results-search">
+                {% for manga in mangas %}
+                <a class="link" href="{{ manga['url'] }}">
+                    <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+                        <div class="col p-4 d-flex flex-column position-static">
+                            <strong class="d-inline-block mb-2 text-primary">{{ manga['type'] }}</strong>
+                            <h3 class="mb-0">{{ manga['title'] }}</h3>
+                            <div class="mb-1 text-muted">Chapters: {{ manga['chapters'] }}</div>
+                            <div class="mb-1 text-muted">Score: {{ manga['score'] }}</div>
+                        </div>
+                        <div class="col-auto d-none d-lg-block">
+                            <img alt='{{ manga["title"] }}' src="{{ manga['image_url'] }}"></img>
+                        </div>
+                    </div>
+                </a>
+                {% endfor %}
+            </div>
+        </div>
+
+    </div>
+{% endblock %}
+
+

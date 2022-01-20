@@ -1,34 +1,58 @@
 {% extends "layout.html" %}
 
 {% block body %}
-    <div>
-        <h3>Digite su busqueda</h3>
-        <input class="form-control form-control-lg" type="search" placeholder="anime/manga">
+    <div class="contenedor">
+        <h2 class="title">Top 6 Seasonal Animes</h2>
+        <div class="results">
+            {% for anime in season_animes %}
+                    <div data-toggle="popover" title="Score: {{ anime['score'] }} " data-bs-content="Producers: {{ anime['producers'][0]['name'] }}">
+                        <a class="link" href="{{anime['url']}}">
+                            <img src="{{ anime['image_url'] }}">
+                        
+                            <div class="img-title">
+                                <p>{{ anime['title'] }}</p>
+                            </div>
+                        </a>
+                    </div>
+            {% endfor %}
+        </div>
 
-        <!-- 
-        <div class="form-check form-switch">
-            <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault">
-            <label class="form-check-label" for="flexSwitchCheckDefault">Anime</label>
+        <h2 class="title">Top 6 Animes</h2>
+        <div class="results">
+            {% for anime in top_animes %}
+                <div data-toggle="popover" title="Score: {{ anime['score'] }}">
+                    <a class="link" href="{{anime['url']}}" >
+                        <img src="{{ anime['image_url'] }}">
+                    
+                        <div class="img-title">
+                            <p>{{ anime['title'] }}</p>
+                        </div>
+                    </a>
+                </div>
+            {% endfor %}
         </div>
-        <div class="form-check form-switch">
-            <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault">
-            <label class="form-check-label" for="flexSwitchCheckDefault">Manga</label>
+
+        <h3 class="title">Top 6 Mangas</h3>
+        <div class="results">
+            {% for manga in top_mangas %}
+                <div data-toggle="popover" title="Score: {{ manga['score'] }}">
+                    <a class="link" href="{{manga['url']}}" >
+                        <img src="{{ manga['image_url'] }}">
+                    
+                        <div  class="img-title">
+                            <p>{{ manga['title'] }}</p>
+                        </div>
+                    </a>
+                </div>
+            {% endfor %}
         </div>
-        -->
+
     </div>
 
-    <ul style="list-style: none; margin-top: 20px;"></ul>
-
-    <script>
-
-        let input = document.querySelector('input');
-        input.addEventListener('input', async function() {
-            let response = await fetch('/buscar_animes?q=' +input.value);
-            let animes = await response.text();
-            document.querySelector('ul').innerHTML = animes;
-        })
-        
-    </script>
-
+    <!--
+        1. Organizar bien el index, para que incluir todo el index dentro de layout
+        2. Lograr realizar bien la busqueda
+        3. Lograr hacer que se busque entre manga o anime (colocar dos botones: uno para manga y otro para anime :))
+    -->
 {% endblock %}
 

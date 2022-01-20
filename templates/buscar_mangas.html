@@ -1,28 +1,17 @@
-{% extends "layout.html" %}
-
-{% block quote %}
-    <figure>
-        <blockquote class="blockquote">
-            <p>{{ quote['quote'] }}</p>
-        </blockquote>
-        <figcaption class="blockquote-footer">
-            {{ quote['character'] }} <cite title="Source Title">{{ quote['anime']}}</cite>
-        </figcaption>
-  </figure>
-{% endblock %}
-
-{% block body %}
+    <ul style="list-style: none;">
     {% for manga in mangas %}
-    <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
-        <div class="col p-4 d-flex flex-column position-static">
-            <strong class="d-inline-block mb-2 text-primary">{{ manga['type'] }}</strong>
-            <h3 class="mb-0">{{ manga['title'] }}</h3>
-            <div class="mb-1 text-muted">Chapters: {{ manga['chapters'] }}</div>
-            <p class="card-text mb-auto">{{ manga['synopsis'] }}</p>
+    <li>
+        <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+            <div class="col p-4 d-flex flex-column position-static">
+                <strong class="d-inline-block mb-2 text-primary">{{ manga['type'] }}</strong>
+                <h3 class="mb-0">{{ manga['title'] }}</h3>
+                <div class="mb-1 text-muted">Chapters: {{ manga['chapters'] }}</div>
+                <p class="card-text mb-auto">{{ manga['synopsis'] }}</p>
+            </div>
+            <div class="col-auto d-none d-lg-block">
+                <img alt='{{ manga["title"] }}' src="{{ manga['image_url'] }}"></img>
+            </div>
         </div>
-        <div class="col-auto d-none d-lg-block">
-            <img alt='{{ manga["title"] }}' src="{{ manga['image_url'] }}"></img>
-        </div>
-    </div>
+    </li>
     {% endfor %}
-{% endblock %}
+    </ul>

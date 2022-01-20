@@ -1,4 +1,6 @@
-from flask import Flask, render_template, request
+from unicodedata import name
+from urllib import response
+from flask import Flask, render_template, request, redirect
 import requests
 from PIL import Image
 
@@ -8,63 +10,51 @@ app = Flask(__name__)
 @app.route('/')
 def index():
 
-    #quote
-    quote = requests.get('https://animechan.vercel.app/api/random').json()
-
-    #Si la longitud de la quote es muy larga
-    if len(quote['quote']) > 200:
-        return index()
-
-    return render_template('index.html', quote=quote)
-     
-
-@app.route('/buscar_animes')
-def buscar_animes():
-
-    name = request.args.get('q')
-
-    if not name:
-        name.replace(' ', '%20')
-
-    #si el tamaño del string es menor a 3:
-    if len(name) < 4:
-        return 'TODO'
-        
-    url = 'https://api.jikan.moe/v3/search/anime?q=' + name + '$page=1'
+    # get seasonal anime
+    url = 'https://api.jikan.moe/v3/season'
 
     response = requests.get(url).json()
-    animes = response['results']
+    season_animes = response['anime']
 
-    return  render_template('buscar_animes.html', animes=animes)
+    # get top anime
+    url = 'https://api.jikan.moe/v3/top/anime/1'
+    response = requests.get(url).json()
+    top_animes = response['top']
 
 
-@app.route('/buscar_mangas', methods=['POST', 'GET'])
-def buscar_mangas():
-    
-    #quote
-    quote = requests.get('https://animechan.vercel.app/api/random').json()
+    # get top manga
+    url = 'https://api.jikan.moe/v3/top/manga/1'
+    response = requests.get(url).json()
+    top_mangas = response['top']
 
-    #Si la longitud de la quote es muy larga
-    if len(quote['quote']) > 200:
-        return index()
+        
+    return render_template('index.html', season_animes=season_animes[:6], top_animes=top_animes[:6], top_mangas=top_mangas[:6])
 
-    if request.method == 'POST':
+@app.route('/search')
+def search():
 
-        name = request.form.get('manga').replace(' ', '%20')
+    quest = request.args.get('q').replace(' ', '%20')
 
-        if len(name) < 4:
-            return 'TODO'
+    if quest:
+        if len(quest) < 3:
+            return redirect('/')
+        
+        url_animes = 'https://api.jikan.moe/v3/search/anime?q=' + quest + '$page=1'
+        url_mangas = 'https://api.jikan.moe/v3/search/manga?q=' + quest + '$page=1'
 
-        url = 'https://api.jikan.moe/v3/search/manga?q=' + name + '$page=1'
+        try:
+            response_animes = requests.get(url_animes).json()
+            animes = response_animes['results']
+            response_mangas = requests.get(url_mangas).json()
+            mangas = response_mangas['results']
+        except:
+            animes, mangas = {}, {}
 
-        response = requests.get(url).json()
-        print(response)
-
-        mangas = response['results']
-
-        return render_template('buscar_mangas.html', mangas=mangas, quote=quote)
-
+        return render_template('search.html', animes=animes, mangas=mangas)
+        
     else:
-        return render_template('buscar_mangas.html', quote=quote)
+
+        return render_template('search.html')
+
 
 
