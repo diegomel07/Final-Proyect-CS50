@@ -1,0 +1,98 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    {{ result['title'] }}
+{% endblock %}
+
+{% block body %}
+
+    <!-- Desplegar el anime/manga que el usuario selecciono -->
+    <div class="container">
+        <div class="selection-grid">
+            <div>
+                <img src="{{ result['images']['webp']['large_image_url'] }}">
+            </div>
+            <div>
+                <h1> {{ result['title_english'] }} </h1>
+                <h3> {{ result['title'] }} </h3>
+                <h4> Score: {{ result['score'] }}</h4>
+                <h6> {{ result['type'] }} </h6>
+                {% if 'episodes' in result %}
+                    <h6> Episodes: {{ result['episodes'] }} </h6>
+                {% else %}
+                    <h6> Chapters: {{ result['chapters'] }} </h6>
+                {% endif %}
+                <h6> {{ result['status'] }} </h6>
+
+
+                <!-- Button trigger modal -->
+                <button type="button" class="btn btn-outline-info" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                    Add to list
+                </button>
+
+                <!-- Modal -->
+                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content" style="border-radius: 20px;">
+                            <div class="modal-header border-bottom-0">
+                                <h5 class="modal-title" id="exampleModalLabel">Add</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+
+                            <form action="/add_to_list" method="post">
+                                {% if 'episodes' in result %}
+                                    <div class="modal-body py-0">
+                                        Select the list where do you want to add {{ result['title'] }}
+                                        <select name="status" class="form-select" aria-label="Default select example" style="margin-top: 40px;" >
+                                            <option value="anime 0">Plan to watch</option>
+                                                <option value="anime 1"> Watching </option>
+                                                <option value="anime 2"> Completed </option>
+                                                <option value="anime 3"> Dropped </option>
+                                        </select>
+                                    </div>
+                                {% else %}
+                                    <div class="modal-body">
+                                        Select the list where do you want to add {{ result['title'] }}
+                                        <select name="status" class="form-select" aria-label="Default select example" style="margin-top: 20px;" >
+                                            <option value="manga 0">Plan to read</option>
+                                                <option value="manga 1"> Reading </option>
+                                                <option value="manga 2"> Completed </option>
+                                                <option value="manga 3"> Dropped </option>
+                                        </select>
+                                    </div>
+                                {% endif %}
+                                <div class="modal-footer flex-column border-top-0">
+                                    <button name="id" value="{{ result['mal_id'] }}" type="submit" class="btn btn-lg btn-primary w-100 mx-0">Add</button>
+                                    <button type="button" class="btn btn-lg btn-light w-100 mx-0" data-bs-dismiss="modal">Close</button>
+                                </div>
+                            </form>
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        
+        {% if 'trailer' in result and result['trailer']['embed_url'] %}
+            <div class="container-video">
+                <div class="second-div"> 
+                    <div class="iframe-container">
+                        <iframe autoplay src="{{ result['trailer']['embed_url'] }}"></iframe>
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+        
+        <div class="container-synopsis" >
+            <div class="second-div" style="margin-top: 50px;">
+                <h3>Synopsis: </h3>
+                <p>
+                    {{ result['synopsis'] }}
+                </p>
+            </div>
+        </div>
+
+    </div>
+
+{% endblock %}

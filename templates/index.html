@@ -1,58 +1,78 @@
 {% extends "layout.html" %}
 
+{% block title %}
+    Principal
+{% endblock %}
+
+
 {% block body %}
     <div class="contenedor">
-        <h2 class="title">Top 6 Seasonal Animes</h2>
-        <div class="results">
-            {% for anime in season_animes %}
-                    <div data-toggle="popover" title="Score: {{ anime['score'] }} " data-bs-content="Producers: {{ anime['producers'][0]['name'] }}">
-                        <a class="link" href="{{anime['url']}}">
-                            <img src="{{ anime['image_url'] }}">
-                        
-                            <div class="img-title">
-                                <p>{{ anime['title'] }}</p>
-                            </div>
+
+        <div style="margin-top: 50px;" class="p-4 p-md-5 mb-4 text-white rounded bg-dark">
+            <div class="col-md-6 px-0">
+                <h1 class="display-4 fst-italic">Kishu</h1>
+                <p class="text-white">Track and Search your favorite anime and manga</p>
+                {% if session['user_id'] %}
+                    <p class="fs-5 text-muted"><a href="/profile" id="aya" class="fs-5 text-muted">Your profile</a></p>
+                {% else %}
+                    <p class="fs-5 text-muted">
+                        <a href="/register" id="aya" class="fs-5 text-muted">
+                            Create an account
+                        </a> or 
+                        <a id="aya" href="/login" class="fs-5 text-muted">
+                            log in
                         </a>
-                    </div>
-            {% endfor %}
+                    </p>
+                {% endif %}
+            </div>
         </div>
 
-        <h2 class="title">Top 6 Animes</h2>
-        <div class="results">
+        <h2 style="margin-top: 100px;" class="title">Top 5 Seasonal Animes</h2>
+        <section class="anime-list">
+            {% for anime in season_animes %}
+                <a data-toggle="popover" title="Score: {{ anime['score'] }}" data-bs-content="Studio: {{ anime['studios'][0]['name'] }}">
+                
+                    <form action="/selection" method="get">
+                        <input type="hidden" name="id" value="anime {{ anime['mal_id'] }}">
+                        <input type="image" id="img" src="{{ anime['images']['webp']['large_image_url'] }}" alt="{{ anime['title'] }}">
+                    </form>
+
+                    <h2 class="img-title" >{{ anime['title'] }}</h2>
+                </a>
+            {% endfor %}
+        </section>
+
+        <h2 class="title">Top 5 Animes of All Time</h2>
+        <section class="anime-list">
             {% for anime in top_animes %}
-                <div data-toggle="popover" title="Score: {{ anime['score'] }}">
-                    <a class="link" href="{{anime['url']}}" >
-                        <img src="{{ anime['image_url'] }}">
-                    
-                        <div class="img-title">
-                            <p>{{ anime['title'] }}</p>
-                        </div>
-                    </a>
-                </div>
-            {% endfor %}
-        </div>
+                <a href="{{ anime['url'] }}" data-toggle="popover" title="Score: {{ anime['score'] }}" data-bs-content="Studio: {{ anime['studios'][0]['name'] }}">
 
-        <h3 class="title">Top 6 Mangas</h3>
-        <div class="results">
-            {% for manga in top_mangas %}
-                <div data-toggle="popover" title="Score: {{ manga['score'] }}">
-                    <a class="link" href="{{manga['url']}}" >
-                        <img src="{{ manga['image_url'] }}">
-                    
-                        <div  class="img-title">
-                            <p>{{ manga['title'] }}</p>
-                        </div>
-                    </a>
-                </div>
+                    <form action="/selection" method="get">
+                        <input type="hidden" name="id" value="anime {{ anime['mal_id'] }}">
+                        <input type="image" id="img" src="{{ anime['images']['webp']['large_image_url'] }}" alt="{{ anime['title'] }}">
+                    </form>
+
+                    <h2 class="img-title" >{{ anime['title'] }}</h2> 
+                </a>    
             {% endfor %}
-        </div>
+        </section>
+
+        <h2 class="title">Top 5 Mangas</h2>
+        <section class="anime-list" style="margin-bottom: 200px;">
+            {% for manga in top_mangas %}
+                <a href="{{ manga['url'] }}" data-toggle="popover" title="Score: {{ manga['scored'] }}" data-bs-content="Author: {{ manga['authors'][0]['name'] }}">
+
+                    <form action="/selection" method="get">
+                        <input type="hidden" name="id" value="manga {{ manga['mal_id'] }}">
+                        <input type="image" id="img" src="{{ manga['images']['webp']['large_image_url'] }}" alt="{{ manga['title'] }}">
+                    </form>
+
+                    <h2 class="img-title" >{{ manga['title'] }}</h2> 
+                </a>
+            {% endfor %}
+        </section>
 
     </div>
 
-    <!--
-        1. Organizar bien el index, para que incluir todo el index dentro de layout
-        2. Lograr realizar bien la busqueda
-        3. Lograr hacer que se busque entre manga o anime (colocar dos botones: uno para manga y otro para anime :))
-    -->
 {% endblock %}
 

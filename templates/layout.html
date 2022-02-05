@@ -3,6 +3,10 @@
 <html lang="en">
     <head>
 
+        <!-- Icons -->
+        <script src="https://kit.fontawesome.com/23c7a56c09.js" crossorigin="anonymous"></script>
+
+        
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Arvo&family=Luxurious+Roman&display=swap" rel="stylesheet"> 
@@ -13,7 +17,7 @@
         <link href="/static/styles.css" rel="stylesheet">
 
         <title>
-            Kishu
+            Kishu: {% block title %} {% endblock %}
         </title>
 
         <!-- Nose esta verga para que sirve, pero asi me funciona el popover :) -->
@@ -38,18 +42,50 @@
                         <span class="navbar-toggler-icon"></span>
                     </button>
                     <a class="navbar-brand" href="/">Kishu</a>
-                    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-                        <div class="navbar-nav">
-                            <a class="nav-link" href="/profile.html">Profile</a>
+                    
+                    {% if session['user_id'] %}
+                        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                            <div class="navbar-nav">
+                                <a class="nav-link" href="/login">Log out</a>
+                            </div>
+                            <div class="navbar-nav">
+                                <a class="nav-link" href="/profile">Profile</a>
+                            </div>
                         </div>
-                    </div>
-                    <form class="d-flex" action="/search" method="get">
-                        <input name="q" id="button-search" type="search" placeholder="Search">
-                        <button class="btn btn-outline-info" type="submit">Search</button>
+                    {% else %}
+                        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                            <div class="navbar-nav">
+                                <a class="nav-link" href="/register">Sign Up</a>
+                            </div>
+                            <div class="navbar-nav">
+                                <a class="nav-link" href="/login">Log in</a>
+                            </div>
+                        </div>
+                    {% endif %}
+
+
+                    <form class="w-50 me-3" action="/search" method="get">
+                        <input minlength="3" class="search-control search-control-dark" name="q"  type="search" placeholder="Search...">
                     </form>
                 </div>
             </nav>
         </div>
         {% block body %} {% endblock %}
+    
     </body>
+    <footer class="py-3 my-4">
+        <ul class="nav justify-content-center border-bottom pb-3 mb-3">
+          <li class="nav-item"><a href="/" class="nav-link px-2 text-muted">Home</a></li>
+          {% if session['user_id'] %}
+            <li class="nav-item"><a href="/profile" class="nav-link px-2 text-muted">Profile</a></li>
+            <li class="nav-item"><a href="/logout" class="nav-link px-2 text-muted">Log out</a></li>
+          {% else %}
+          <li class="nav-item"><a href="/login" class="nav-link px-2 text-muted">Log in</a></li>
+          <li class="nav-item"><a href="/register" class="nav-link px-2 text-muted">Sign Up</a></li>
+          {% endif %}
+          <li class="nav-item"><a href="/search" class="nav-link px-2 text-muted">Search</a></li>
+        </ul>
+        <p class="text-center text-muted">© 2022 Kishu</p>
+    </footer>
+
 </html>

@@ -1,0 +1,26 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Log in
+{% endblock %}
+
+
+{% block body %}
+
+<div class="contenedor-register">
+    <div class="card-register">
+        <h2 class="title-register">Welcome back to Kishu!</h2>
+        <form action="/login" method="post">
+            <div class="mb-3">
+                <input minlength="5" maxlength="15" name="username" placeholder="Username" type="text" class="form-control"/>
+            </div>
+            <div style="padding: 1em;"></div>
+            <div class="mb-3">
+                <input minlength="8" maxlength="20" name="password" placeholder="Password" type="password" class="form-control" id="exampleInputPassword1" />
+            </div>
+            <button  type="submit" class="btn btn-primary">Log in</button>
+        </form>
+    </div>
+</div>
+
+{% endblock %}

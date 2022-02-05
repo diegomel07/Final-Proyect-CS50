@@ -1,83 +1,264 @@
-.contenedor
-{
-    width: 70%;
-    margin: 0 auto;
+.contenedor {
+  width: 70%;
+  margin: 0 auto;
 }
 
-.contenedor nav
-{
-    margin-top: 20px;
+.contenedor nav {
+  margin-top: 20px;
+}
+
+.contenedor-register {
+  width: 25%;
+  margin: 50px auto;
+  background-color: #c2d2f2;
+  border-radius: 10px;
+  justify-items: center;
+}
+
+.card-register {
+  padding: 2em;
+}
+
+.title {
+  margin-top: 1em;
+  margin-bottom: 10px;
+  font-family: "Arvo", serif;
+  text-align: center;
+}
+
+.title-register {
+  padding-bottom: 2em;
+  font-family: "Arvo", serif;
+  text-align: center;
+}
+
+.img-title {
+  width: 185px;
+  height: auto;
+  text-align: center;
+  font-family: "Luxurious Roman", cursive;
+  margin-top: 10px;
+}
+
+/* Cajon de busqueda */
+
+.search-control {
+  display: block;
+  width: 100%;
+  padding: 7px 7px 7px 40px;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+  background-clip: padding-box;
+  border: 1px solid #ced4da;
+  appearance: none;
+  border-radius: 10px;
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='white' class='bi bi-search' viewBox='0 0 16 16'%3E%3Cpath d='M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z'%3E%3C/path%3E%3C/svg%3E")
+    no-repeat 13px center;
+}
+
+.search-control:focus {
+  outline: 0;
+}
+
+.search-control-dark {
+  color: #fff;
+  background-color: var(--bs-dark);
+  border-color: var(--bs-gray);
+}
+
+.search-control-dark:focus {
+  color: #fff;
+  background-color: var(--bs-dark);
+  border-color: #fff;
+  box-shadow: 0 0 0 0.25rem rgba(255, 255, 255, 0.25);
+}
+/* Prueba de el grid pero que sea flex*/
+
+.anime-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  background-color: #f2f2f2;
+  border-radius: 20px;
+  margin-bottom: 150px;
+}
+
+.anime-list a {
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  text-align: center;
+  padding: 30px 30px 0;
+  text-decoration: none;
+  color: inherit;
+}
+
+.anime-list #img {
+  width: 100%;
+  height: auto;
+  max-width: 185px;
+  max-height: 270px;
+  border-radius: 10px;
 }
 
 
-.title
-{
-    margin-top: 1em;
-    margin-bottom: 10px;
-    font-family: 'Arvo', serif;
+a h2 {
+  font-size: 20px;
 }
 
+/* Cajas de resultados*/
 
-.results
-{
-    display: grid;
-    grid-gap: 20px;
-    grid-template-columns: repeat(auto-fill, minmax(185px, 1fr));
-    margin-bottom: 5em;
+.results {
+  display: grid;
+  grid-gap: 60px;
+  grid-template-columns: 1fr 1fr;
+  margin: 0 auto;
+  max-width: 1700px;
+  padding: 200px 60px;
 }
 
-.results-search
-{
-    display: grid;
-    grid-gap: 20px;
-    grid-template-columns: 1fr;
-    grid-template-rows: minmax();
-    margin-bottom: 5em;
+.result-col {
+  border-radius: 13px;
+  position: relative;
+  background-color: #f2f2f2;
 }
 
-.results-search img
-{
-    width: 160px;
-    height: 220px;
+.result {
+  font-size: 1.5em;
+  font-weight: 600;
+  padding: 10px 20px;
+  position: relative;
 }
 
-.results img
-{
-    width: 185px;
-    height: 270px;
-    border-radius: 10px;
+.result #a1 {
+  align-items: center;
+  display: grid;
+  grid-template-columns: 100px auto;
 }
 
-.img-title
-{
-    width: 185px;
-    height: auto;
-    text-align: center;
-    font-family: 'Luxurious Roman', cursive;
-    margin-top: 10px;
+.result #a1:hover {
+  background-color: #cfeafd;
+  border-radius: 10px;
+  color: black;
 }
 
-.link
-{
-    text-decoration: none;
-    color: black;
+.result .image {
+  background-position: 50%;
+  background-repeat: no-repeat;
+  background-size: cover;
+  border-radius: 3px;
+  display: inline-block;
+  height: 100px;
+  width: 100px;
 }
 
-.search-grid
-{
-    display: grid;
-    grid-gap: 40px;
-    grid-template-columns: 1fr 1fr;
+.result .name {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  padding: 0 10px;
+  font-size: 1.5rem;
 }
 
-#button-search
-{
-    border-radius: 10px;
-    border-width: 0px;
-    margin-right: 10px;
+.result .info {
+  color: rgb(var(--color-text-light));
+  font-size: 0.8rem;
+  font-weight: 500;
+  padding-top: 3px;
 }
 
+.result .open-list-editor {
+  align-items: center;
+  display: flex;
+  height: 24px;
+  justify-content: center;
+  position: absolute;
+  right: 40px;
+  top: calc(50% - 1px);
+  width: 60px;
+}
 
+/* anime / manga seleccionados */
 
+.selection-grid {
+  display: grid;
+  grid-template-columns: 30% 70%;
+  margin: 0 auto;
+  max-width: 1700px;
+  padding: 200px;
+  padding-top: 100px;
+  padding-bottom: 100px;
+}
 
-  
+.selection-grid img {
+  width: 100%;
+  height: auto;
+  max-width: 185px;
+  max-height: 270px;
+  border-radius: 10px;
+}
+
+.iframe-container {
+  position: relative;
+  padding-bottom: 56.25%;
+  padding-top: 25px;
+  height: 0px;
+}
+
+.container-video {
+  margin: 0 auto;
+  width: 50%;
+}
+.iframe-container iframe {
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  right: 0px;
+  bottom: 0px;
+  width: 100%;
+  height: 100%;
+}
+
+.second-div {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 15px;
+}
+
+.container-synopsis {
+  margin: 0 auto;
+  width: 70%;
+  margin-bottom: 100px;
+}
+
+#b1 {
+  background-color: transparent;
+  border-color: transparent;
+  border-radius: 10px;
+}
+
+.status {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.button-show {
+  display: grid;
+  grid-template-columns: 1fr;
+  justify-items: center;
+  text-align: center;
+}
+
+.button-show button {
+  width: 50%;
+}
+
+.modal-dialog {
+  width: 380px;
+}
+
+#aya:hover
+{
+  color: white;
+}

@@ -1,0 +1,140 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    {{username}}
+{% endblock %}
+
+{% block body %}
+    
+    <div class="contenedor">
+        <div class="title-register">
+            <h2 style="margin-top: 20px;" >Welcome to Kishu {{ username }}</h2>
+        </div>
+        <form  action="/profile" method="get">
+        
+            <div style="padding: 40px;" class="results">
+                <div class="result-col">
+                    <h2 class="title">Select your Anime list</h2>
+                    
+                        <select name="anime_status" class="form-select" aria-label="Default select example" style="margin-top: 10px;" >
+                            <option value="anime 0">Plan to watch</option>
+                                <option value="anime 1"> Watching </option>
+                                <option value="anime 2"> Completed </option>
+                                <option value="anime 3"> Dropped </option>
+                        </select>
+                </div>
+
+                <div class="result-col">
+                    <h2 class="title">Select your Manga list</h2>
+                    
+                        <select name="manga_status" class="form-select" aria-label="Default select example" style="margin-top: 10px;" >
+                            <option value="manga 0">Plan to read</option>
+                                <option value="manga 1"> Reading </option>
+                                <option value="manga 2"> Completed </option>
+                                <option value="manga 3"> Dropped </option>
+                        </select>
+                </div>
+            </div>
+
+            <div class="button-show" >
+                <form action="/profile" method="get">
+                    <button type="input" class="btn btn-dark">Show</button>
+                </form>
+            </div>
+
+            <div style="padding: 40px;" class="results">
+                <div class="result-col" >
+                    {% if current_status %}
+                        <div style="margin-top: 20px; text-align: center;" class="result-col">
+                            <h3>{{ current_status[0] }}</h3>
+                        </div>
+                    {% endif %}
+                        
+                    {% for anime in animes %}
+                        {% if anime['title'] %}
+                            <div class="result">
+                                <div>
+                                    <a id="a1">  
+                                        <div class="image" style="background-image: url({{ anime['images']['webp']['large_image_url']}});"></div>  
+                                        <div class="name" >
+                                            {{ anime['title'] }}
+                                            <div class="info" >
+                                                {% if anime['studios'] %}
+                                                    <span>{{ anime['studios'][0]['name'] }}</span>
+                                                {% endif %}
+                                                {% if anime['airing'] %}
+                                                    <span> - Airing</span>
+                                                {% else %}
+                                                    {% if anime['year'] %}
+                                                        <span> - From: {{ anime['year'] }}</span>
+                                                    {% endif %}
+                                                {% endif %}
+                                            </div>
+                                            <div class="info">
+                                                <span>{{ anime['type'] }}</span>
+                                            </div>  
+                                        </div>                          
+                                    </a> 
+
+                                    <form action="/selection" method="get">
+                                        <a class="open-list-editor" >
+                                            <button name="id" value="anime {{ anime['mal_id'] }}" type="submit" id="b1" class="btn btn-info"><i class="fas fa-plus-circle fa-w-16 fa-2x"></i></button>
+                                        </a>
+                                    </form>
+
+                                </div>
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+
+                <div  class="result-col" >
+                    {% if current_status %}
+                        <div style="margin-top: 20px; text-align: center;" class="result-col">
+                            <h3>{{ current_status[1] }}</h3>
+                        </div>
+                    {% endif %}
+
+                    {% for manga in mangas %}
+                        {% if manga['title'] %}
+                            <div class="result">
+                                <div>
+                                    <a id="a1">
+                                        <div class="image" style="background-image: url({{ manga['images']['webp']['large_image_url']}});"></div>    
+                                        <div class="name" >
+                                            {{ manga['title'] }}
+                                            <div class="info" >
+                                                <span>{{ manga['authors'][0]['name'] }}</span>
+
+                                                {% if manga['publishing'] %}
+                                                    <span> - Publishing</span>
+                                                {% else %}
+                                                    {% if manga['published']['from'] and  manga['published']['to']%}
+                                                        <span> - From: {{ manga['published']['from'][:4] }} To: {{ manga['published']['to'][:4] }}</span>
+                                                    {% endif %}
+                                                {% endif %}
+                                            </div>
+                                            <div class="info" >
+                                                <span>{{ manga['type'] }}</span>
+                                            </div>
+                                        </div>                         
+                                    </a>
+
+                                    <form action="/selection" method="get">
+                                        <a class="open-list-editor" >
+                                            <button name="id" value="manga {{ manga['mal_id'] }}" type="submit" id="b1" class="btn btn-info"><i class="fas fa-plus-circle fa-w-16 fa-2x"></i></button>
+                                        </a>
+                                    </form>
+
+                                </div>
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            </div>
+        </form>
+    </div>
+
+
+
+{% endblock %}
