@@ -1,6 +1,3 @@
-from os import stat
-from unittest import result
-from urllib import response
 from flask import Flask, render_template, request, redirect, session
 import requests
 from string import punctuation
